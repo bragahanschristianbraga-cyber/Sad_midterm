@@ -6,7 +6,7 @@ const fmt = d => new Date(d).toLocaleString("en-PH", { timeZone: "Asia/Manila", 
 const badge = t => `<span class="badge b-${esc(String(t).split(" ")[0])}">${esc(t)}</span>`;
 let me, D = {}, tab = "dash", F = { ay: "2026-2027", sem: "1", q: "", prog: "", comp: "" }, editId = null;
 
-function toast(m, bad) { const t = $("#toast"); t.textContent = m; t.className = bad ? "bad" : ""; t.style.display = "block"; setTimeout(() => t.style.display = "none", 4500); }
+function toast(m, bad) { const t = $("#toast"); t.textContent = m; t.className = bad ? "bad" : ""; t.style.display = "block"; t.onclick = () => t.style.display = "none"; clearTimeout(toast.h); toast.h = setTimeout(() => t.style.display = "none", bad ? 9000 : 4000); }
 async function rpc(fn, args, ok) {
   const { error } = await sb.rpc(fn, args);
   if (error) return toast(error.message, true);
